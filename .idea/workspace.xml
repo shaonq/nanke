@@ -86,8 +86,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="30">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -448,7 +448,7 @@
       <workItem from="1467273273909" duration="3000" />
       <workItem from="1467333391775" duration="16539000" />
       <workItem from="1467355442660" duration="3385000" />
-      <workItem from="1467359445943" duration="1432000" />
+      <workItem from="1467359445943" duration="1437000" />
     </task>
     <task id="LOCAL-00001" summary="up  README.md">
       <created>1467360840125</created>
@@ -464,11 +464,18 @@
       <option name="project" value="LOCAL" />
       <updated>1467360861729</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="up  README.md">
+      <created>1467360881009</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1467360881009</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189732000" />
+    <option name="totallyTimeSpent" value="189737000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -865,8 +872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
