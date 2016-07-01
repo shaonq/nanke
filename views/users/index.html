@@ -1,0 +1,59 @@
+{{ include ../inc/head}}
+<style>
+    .layout-main-users {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .layout-main-users .users-side {
+        width: 299px;
+        text-align: center;
+    }
+
+    .users-side img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%
+    }
+
+    .users-side p {
+        line-height: 30px;
+        color: #666;
+    }
+
+    .layout-main-users .users-warp {
+        width: 650px;
+    }
+    /**/
+    .box {display:none;min-height: 4000px;background-color: #EEA9A9;width: 100%;}
+    .box.this{display: block;}
+</style>
+<div class="layout-main main layout-main-users">
+    <div class="layout-side users-side ">
+        <a><img src="http://placeholder.qiniudn.com/100x100/33cc99/33cc99"></a>
+        <p>{{d.user.name}}</p>
+        <p>{{d.user.motto}}</p>
+    </div>
+    <div class="layout-warp  users-warp" id="a">
+        <div class="btn-group" nk-tab=".btn/btn-blue/.box-group .box">
+            <div class="btn btn-small btn-blue">编辑心情</div>
+            <div class="btn btn-small">修改头像</div>
+            <div class="btn btn-small">修改密码</div>
+        </div>
+        <div class="box-group">
+            <div class="box this">
+                111111111111111
+            </div>
+            <div class="box" style="background-color: #BEC23F">111111111111111</div>
+            <div class="box" style="background-color: #2196f3">111111111111111</div>
+        </div>
+
+        <a href="#">1</a>
+        <a href="#a">2</a>
+    </div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/download/nk.js"></script>
+</body>

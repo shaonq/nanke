@@ -1,0 +1,73 @@
+{{ include ../inc/head}}
+<div class="main layout-main">
+    <div class="layout-side">
+        <ul class="tree">
+            <li class="this"><a href="#qianyan">前言</a></li>
+            <li>
+                <a href="#api_demo">API和功能演示</a>
+                <ul>
+                    <li><a href="#demo">demo</a></li>
+                    <li><a href="#api">api</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#down">源码和下载</a>
+            </li>
+        </ul>
+    </div>
+    <div class="layout-warp">
+        <div class="floor">
+            <fieldset class="h1" id="qianyan"><legend>前言</legend></fieldset>
+            <div class="content">
+                <p>
+                    实现通过用户已经输入数据异步模糊，返回数据給用户选择，以打到良好的用户体验。
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="api_demo"><legend>API和功能演示</legend></fieldset>
+            <div class="content">
+                <fieldset class="h2" id="demo"><legend>demo</legend></fieldset>
+                <p>
+<pre class="runjs">
+    //依赖：jQuery
+ $("#f_search").on("keyup",function(){
+    search(this,{url: "/search/json",data:{id:1}},["input[readonly]"])
+ });
+    //加载插件
+</pre>
+                <input type="text" id="f_search" name="name">
+                <input type="text" readonly>
+
+                <fieldset class="h2" id="api"><legend>api</legend></fieldset>
+
+<pre>初始化插件： search(this,options,emes)
+     其中 this：是指要显示这个表格的js选择器(非jQ), 或者$("#f_date")[0](jQ)
+          options：参照$.ajax(options),其中应用插件(input)的name会覆盖options.data.name;
+          emes :第二个以外要使用数据的input，可以是影藏元素。
+</pre>
+<pre type="json">
+    //ajax请求的数据格式
+ {
+     "status": 0,
+     "data": [
+         ["aaaaaa",1],
+         ["bbbbbbbb",2],
+         ["cccccc",3]
+     ]
+ }
+</pre>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="down"><legend>下载</legend></fieldset>
+            <div class="content">
+                <a class="btn btn-medium" style="display: block; text-align: center; height: 40px; line-height: 40px; border-color: transparent;" href="/download/search.js" target="_blank">源码下载</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/download/search.js"></script>
+<script src="/js/all.js"></script>
+</body>

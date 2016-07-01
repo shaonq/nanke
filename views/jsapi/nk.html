@@ -1,0 +1,91 @@
+{{ include ../inc/head}}
+<div class="main layout-main">
+    <div class="layout-side">
+        <ul class="tree">
+            <li class="this"><a href="#qianyan">前言</a></li>
+            <li>
+                <a href="#api_demo">小工具</a>
+                <ul>
+                    <li><a href="#fix">fix</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#ext_demo">扩展</a>
+                <ul>
+                    <li><a href="#move">移动元素</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="layout-warp">
+        <div class="floor">
+            <fieldset class="h1" id="qianyan"><legend>前言</legend></fieldset>
+            <div class="content">
+                <p>
+                    自己常用的js代码集合，以及依稀俄小工具的整理集成
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="api_demo"><legend>前言</legend></fieldset>
+            <div class="content">
+                <fieldset class="h2" id="fix"><legend>fix</legend></fieldset>
+                <p>
+                   DEMO 见网页右下角
+<pre class="runjs">
+    $(".fix-block").remove();//只能同时存在一个fix模块
+    nk.fix({
+        top: {content: '<img src="/images/top.png">'},//点击回到顶部
+        list: [{//其他模块
+            content: '<img src="/images/code.png">',// 32x32
+            drop: '&lt;img src="http://qr.liantu.com/api.php?text=http://192.168.1.22:3000/chat" width="150"&gt;'
+        }, {
+            content: '长内容',
+            drop: '&lt;div&gt;&lt;h3 style="font-size: 16px"&gt;你知道吗？&lt;/h3&gt;&lt;p style="padding: 15px 15px 40px;width: 200px;"&gt;写呀写代码,写呀写代码写呀写代码写呀写代码&lt;/p&gt;&lt;/div&gt;'
+        },{
+            content: '欢迎光临',
+            drop: '你好啊，小伙伴'
+        }, {
+            content: '点我下',
+            click: function () {alert("你点了我一下")}
+        }],
+        contentCss: "color:#000"//全局
+        ,dropCss: "color:#666;"//全局
+    });
+</pre>
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <div class="content">
+                <fieldset class="h1" id="ext_demo"><legend>小工具</legend></fieldset>
+                <fieldset class="h2" id="move"><legend>move</legend></fieldset>
+                <p>
+                    DEMO 见网页右下角
+<pre class="runjs">
+    nk.move(".fix-block");
+</pre>
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <div class="content">
+                <fieldset class="h2" id="fix2"><legend>form </legend></fieldset>
+<pre>
+    功能设计：
+    1，支持条形input的验证
+    2，
+    3，
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/download/nk.js"></script>
+<script src="/download/nk.ext.js"></script>
+<script src="/js/all.js"></script>
+<script>
+
+</script>
+</body>

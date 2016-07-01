@@ -1,0 +1,119 @@
+{{ include ../inc/head}}
+<div class="main layout-main">
+    <div class="layout-side">
+        <ul class="tree">
+            <li class="this"><a href="#qianyan">前言</a></li>
+            <li><a href="#api_demo">举个例子</a></li>
+            <li><a href="#WebSocket">WebSocket</a></li>
+        </ul>
+    </div>
+    <div class="layout-warp">
+        <div class="floor">
+            <fieldset class="h1" id="qianyan">
+                <legend>前言</legend>
+            </fieldset>
+            <div class="content">
+                web端即时通讯
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="api_demo">
+                <legend>举个例子</legend>
+            </fieldset>
+            <div class="content" style="    border: 1px solid #D9D9D9;padding: 15px">
+                <div class="chat-head">
+                    <img src="http://placeholder.qiniudn.com/60x60/33cc99/33cc99">
+                    <h2 class="chat-head-title">管理员</h2>
+                    <span class="chat-head-text">你有什么要说的</span>
+                </div>
+                <div class="chat-main">
+                    <ul>
+                        <li>
+                            <div class="chat-main-user"><img
+                                    src="http://placeholder.qiniudn.com/40x40/33cc99/33cc99"><cite><i>2016-6-22
+                                3:43:02</i> 管理员 </cite></div>
+                            <div class="chat-main-text">我们来聊天吧~</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-tools"><i></i>
+                    <div class="chat-tool-log">聊天记录</div>
+                    <textarea class="chat-tool-textarea" placeholder="说点什么试试"></textarea>
+                    <div class="chat-tool-bottom">
+                        <span>发送消息</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="WebSocket">
+                <legend>其他</legend>
+            </fieldset>
+            <div class="content">
+                WebSocket 高效的服务端/客户端交互。
+                使用 Nodejs + socket.io配置
+<p>服务端</p>
+<pre>
+    //安装nodejs
+    <pre>npm install express socket.io -save</pre>
+    // 配置server
+    var app = require('express')()
+    , server = require('http').createServer(app)
+    , io = require('socket.io').listen(server);
+server.listen(3001);
+io.on('connection', function (socket) {
+    console.log('WebSocket connected');
+    console.log(socket.connected);
+    socket.on('message', function (d) {
+        console.log(socket.id);
+        socket.send(d);//("message")
+    }).on('disconnect', function () {
+        console.log('WebSocket disconnect');
+    });
+
+});
+
+</pre>
+<p>客户端</p>
+<pre>
+    var nk={debug:function(val,type){/*....*/}
+    var socket, fn = function () {
+        socket = io('ws://192.168.1.22:3001');
+        socket.on('connect', function () {
+            nk.debug("WebSocket connect", "info");
+            socket.on('message', function (d) {
+                nk.debug(d, "info");
+            });
+        });
+    };
+    (typeof io === "undefined") ? $.getScript("/download/socket.io.js", fn) : fn();
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="fix-block">
+    <a class="block-link" href="#" type="top">
+        <img src="/images/top.png">
+    </a>
+    <a class="block-link" href="#" type="img">
+        <img src="/images/code.png">
+        <span class="block-link-drop">
+
+        </span>
+    </a>
+    <a class="block-link" href="#">
+        你好
+            <span class="block-link-drop">
+
+        </span>
+    </a>
+    <a class="block-link" href="#">欢迎光临</a>
+</div>-->
+<link href="/css/chat.css" rel="stylesheet">
+<script src="/js/jquery.min.js"></script>
+<script src="/download/nk.js"></script>
+<script src="/download/chat.js"></script>
+<script src="/js/all.js"></script>
+</body>

@@ -1,0 +1,121 @@
+{{ include ../inc/head}}
+<div class="main layout-main">
+    <div class="layout-side">
+        <ul class="tree">
+            <li class="this"><a href="#qianyan">前言</a></li>
+            <li>
+                <a href="#api_demo">API和功能演示</a>
+                <ul>
+                    <li><a href="#demo">demo</a></li>
+                    <li><a href="#api">api</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#down">源码和下载</a>
+            </li>
+        </ul>
+    </div>
+    <div class="layout-warp">
+        <div class="floor">
+            <fieldset class="h1" id="qianyan"><legend>前言</legend></fieldset>
+            <div class="content">
+                <p>
+                    现在的大多数项目需要使用到日历js，比如用来实现签到，快速选择某一天等类似的目的。在这基础上开发一个分离css和js的日历插件。
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="api_demo"><legend>API和功能演示</legend></fieldset>
+            <div class="content">
+                <fieldset class="h2" id="demo"><legend>demo</legend></fieldset>
+                <p>
+<pre class="runjs">
+    //依赖：jQuery
+    //加载插件
+    date(document.getElementById("f_date"), {
+        url:"/date/json"
+        ,data:function(a,b){
+            if(b)for(var i in b){var d1 = a.join("-"),d2 = b[i];
+                if(d1===d2){
+                    $(this).css({"color":"blue"}).find("p").text("签到")
+                }
+            }
+         }
+        ,click: function (d) {
+            alert("日期：" + (d.join('-')))
+        }
+    })
+    //下面的表格样式是我的默认表格样式
+</pre>
+                <div id="f_date"></div>
+                <p>下面我们写一些css,点击下面demo试试</p>
+<pre class="runcss">
+    #f_date thead{background-color:#eee;}
+    #f_date .td_prev,
+    #f_date .td_next{visibility: hidden;}
+    #f_date .td_this{color:red;}
+</pre>
+                <p>当然我们还支持ajax异步加载数据，至于怎么显示这些数据，长什么样子都由你来定义。</p>
+                <fieldset class="h2" id="api"><legend>api</legend></fieldset>
+
+<pre>初始化插件：data(this,options)
+     其中 this：是指要显示这个表格的js选择器(非jQ), 或者$("#f_date")[0](jQ)
+          options：选项 见下表格
+ header:表头字段 {left:"", right:""}
+ date:当前时间
+ url：ajax提交URL
+ data：数据处理fn(a,b) a表格数据，b ajax返回数据
+ click： fn表格数据 a 当前日期
+</pre>
+<pre type="json">
+    //ajax 数据格式
+ {
+     "status":0,
+     "data":[//下面数据可以自定义
+          "2016-06-01",
+          "2016-07-01",
+          "2016-08-01",
+          "2016-09-01",
+          "2016-10-01",
+          "2016-11-01",
+          "2016-12-01"
+     ]
+ }
+</pre>
+                    <table>
+                        <tr>
+                            <th>header</th>
+                            <td>是否需要表头，为true就显示月分，同时可传入 {left:"", right:""}</td>
+                        </tr>
+                        <tr>
+                            <th>date</th>
+                            <td>日历初始化的哪一天</td>
+                        </tr>
+                        <tr>
+                            <th>url</th>
+                            <td>ajax请求数据的URL</td>
+                        </tr>
+                        <tr>
+                            <th>data</th>
+                            <td>处理url请求成功的数据</td>
+                        </tr>
+                        <tr>
+                            <th>click</th>
+                            <td>function:回传参数为数组([年，月，日])</td>
+                        </tr>
+                    </table>
+
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="down"><legend>下载</legend></fieldset>
+            <div class="content">
+                <a class="btn btn-medium" style="display: block; text-align: center; height: 40px; line-height: 40px; border-color: transparent;" href="/download/data.js" target="_blank">源码下载</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/download/data.js"></script>
+<script src="/js/all.js"></script>
+</body>

@@ -1,0 +1,215 @@
+{{ include ../inc/head}}
+<div class="main layout-main">
+    <div class="layout-side">
+        <ul class="tree">
+            <li class="this"><a href="#qianyan">前言</a></li>
+            <li><a href="#mysql">mysql 模块</a></li>
+            <li><a href="#cookie">cookie 模块</a></li>
+            <li><a href="#upload">upload 模块</a></li>
+            <li>
+                <a href="#express">express</a>
+                <ul class="tree">
+                    <li><a href="#express_router">路由</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="layout-warp">
+        <div class="floor">
+            <fieldset class="h1" id="qianyan">
+                <legend>路由</legend>
+            </fieldset>
+            <div class="content">
+                <p>
+                    前提：使用WebStorm创建的nodejs express环境<br>
+                    nodejs 使用笔记以及遇到的问题。
+                </p>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="mysql">
+                <legend>mysql</legend>
+            </fieldset>
+            <div class="content"><p> 安装</p>
+                <pre>$ npm install mysql</pre>
+                <p>demo</p> <pre> var mysql      = require('mysql'); var connection = mysql.createConnection({//conf host     : 'localhost', user     : 'me', password : 'secret', database : 'my_db' }); connection.connect();//链接 connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {//配置 if (err) throw err; console.log('The solution is: ', rows[0].solution); });
+connection.end();//关闭连接
+</pre>
+                <p>sql 语句</p>
+<pre>
+ connection.query('SELECT * FROM `books` WHERE `author` = ?', ['David'], function (error, results, fields) {
+  // error will be an Error if one occurred during the query
+  // results will contain the results of the query
+  // fields will contain information about the returned results fields (if any)
+});
+ var post  = {id: 1, title: 'Hello MySQL'};
+var query = connection.query('INSERT INTO posts SET ?', post, function(err, result) {
+  // Neat!
+});
+console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
+</pre>
+                <p>配置mysql</p>
+                <pre>
+//这里使用断线重连法 也可配置mysql连接池
+var mysql = require('mysql');
+var conn,mysql_new_conn = function  () {
+  var fn = arguments.callee;
+  conn = mysql.createConnection({ host: 'localhost', user: 'root', password: '', database: 'yy_jiangnan', port: 3306});
+  conn.connect(function (err) {  //连接错误，2秒重试
+    if (err) {
+      console.log('error when connecting to db:', err);
+      setTimeout( fn, 2000);
+    }
+  });
+  conn.on('error', function (err) {
+    console.log('db error', err);// 如果是连接断开，自动重新连接
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') { fn(); } else { throw err; }
+  });
+  return fn;
+}();
+                </pre>
+                <p>其他</p>
+                <p><a href="https://github.com/mysqljs/mysql" target="_blank">https://github.com/mysqljs/mysql </a></p>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="cookie">
+                <legend>cookie</legend>
+            </fieldset>
+            <div class="content">
+<pre>
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+router.get('/', function(req, res) {
+    console.log(req.cookies)
+    //res.cookie(key,value,op)
+}
+</pre>
+                <p>op 配置如下</p>
+                <table>
+                    <tr>
+                        <th> domain：</th>
+                        <td>cookie在什么域名下有效，类型为String,。默认为网站域名</td>
+                    </tr>
+                    <tr>
+                        <th>expires:</th>
+                        <td> cookie过期时间，类型为Date。如果没有设置或者设置为0，那么该cookie只在这个这个session有效，即关闭浏览器后，这个cookie会被浏览器删除。</td>
+                    </tr>
+                    <tr>
+                        <th>httpOnly:</th>
+                        <td> 只能被web server访问，类型Boolean。</td>
+                    </tr>
+                    <tr>
+                        <th> maxAge:</th>
+                        <td> 实现expires的功能，设置cookie过期的时间，类型为String，指明从现在开始，多少毫秒以后，cookie到期。</td>
+                    </tr>
+                    <tr>
+                        <th> path:</th>
+                        <td>cookie在什么路径下有效，默认为'/'，类型为String</td>
+                    </tr>
+                    <tr>
+                        <th> secure：</th>
+                        <td>只能被HTTPS使用，类型Boolean，默认为false</td>
+                    </tr>
+                    <tr>
+                        <th> signed:</th>
+                        <td>使用签名，类型Boolean，默认为false。`express会使用req.secret来完成签名，需要cookie-parser配合使用`</td>
+                    </tr>
+                </table>
+                <p>其他</p>
+                <a href="https://github.com/expressjs/cookie-parser" target="_blank">https://github.com/expressjs/cookie-parser</a>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="upload">
+                <legend>upload</legend>
+            </fieldset>
+            <div class="content">
+<pre>
+var fs = require("fs");
+var multipart = require('connect-multiparty');
+router.use(multipart({ uploadDir: './public/uploads/' }));//跨磁盘
+//app.use(express.bodyParser({ uploadDir: "./public/upload/" }));
+var multipartMiddleware = multipart();
+}
+router.post("/upload",multipartMiddleware, function (req, res) {
+  var data ={status:4};
+  if(req.files&&req.files.file){
+    var d =req.files.file;
+    var file = "./public",newPath = "/uploads/"+(new Date()/1)+d.name;
+    try{
+      fs.renameSync(d.path, file+newPath);
+      data.status = 0;
+      data.url = newPath;
+    }catch(e){
+      data.errpr = "文件移动失败";
+    }
+  }
+  console.log(data);
+});
+</pre>
+
+                <p>其他</p>
+                <a href="https://github.com/andrewrk/connect-multiparty" target="_blank">https://github.com/expressjs/cookie-parser</a>
+            </div>
+        </div>
+        <div class="floor">
+            <fieldset class="h1" id="express"> <legend>express</legend> </fieldset>
+            <p>文档</p>
+            <a href="http://www.expressjs.com.cn/4x/api.html" target="_blank">http://www.expressjs.com.cn/4x/api.html</a>
+            <div class="content">
+                <fieldset class="h2" id="express_router"> <legend>router</legend> </fieldset>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>方法</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a>res.download()</a></td>
+                        <td>提示下载文件。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.end()</a></td>
+                        <td>终结响应处理流程。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.json()</a></td>
+                        <td>发送一个 JSON 格式的响应。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.jsonp()</a></td>
+                        <td>发送一个支持 JSONP 的 JSON 格式的响应。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.redirect()</a></td>
+                        <td>重定向请求。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.render()</a></td>
+                        <td>渲染视图模板。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.send()</a></td>
+                        <td>发送各种类型的响应。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.sendFile</a></td>
+                        <td>以八位字节流的形式发送文件。</td>
+                    </tr>
+                    <tr>
+                        <td><a>res.sendStatus()</a></td>
+                        <td>设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/download/nk.js"></script>
+<script src="/js/all.js"></script>
+</body></html>
